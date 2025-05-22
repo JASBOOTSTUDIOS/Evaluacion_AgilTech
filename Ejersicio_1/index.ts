@@ -9,6 +9,6 @@ const counterNumber = (n:number):number[] =>{
         }
     }
     return result;
-} 
+}
 
 console.info(counterNumber(10));
