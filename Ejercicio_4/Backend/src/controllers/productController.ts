@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { pool } from '../db/connection';
 
-// Crear nuevo producto
-export const crearProducto = async (req: Request, res: Response) => {
+
+export const createProduct = async (req: Request, res: Response) => {
   const { nombre_producto, descripcion, precio, id_categoria } = req.body;
   try {
     if(nombre_producto === "" || descripcion === "" || precio === "" || id_categoria === ""){
@@ -19,7 +19,7 @@ export const crearProducto = async (req: Request, res: Response) => {
 };
 
 // Listar productos con su categoría e inventario
-export const listarProductos = async (req: Request, res: Response) => {
+export const listProduct = async (req: Request, res: Response) => {
   try {
     const [rows] = await pool.query(
       `SELECT p.id_producto, p.nombre_producto, p.descripcion, p.precio, c.nombre_categoria, i.stock_actual, i.stock_minimo, i.fecha_actualizacion
@@ -34,7 +34,7 @@ export const listarProductos = async (req: Request, res: Response) => {
 };
 
 // Actualizar producto
-export const actualizarProducto = async (req: Request, res: Response) => {
+export const updateProduct = async (req: Request, res: Response) => {
   const id_producto = req.params.id;
   const { nombre_producto, descripcion, precio, id_categoria } = req.body;
   try {
@@ -52,7 +52,7 @@ export const actualizarProducto = async (req: Request, res: Response) => {
 };
 
 // Eliminar producto
-export const eliminarProducto = async (req: Request, res: Response) => {
+export const deleteProduct = async (req: Request, res: Response) => {
   const id_producto = req.params.id;
   try {
     const [result] = await pool.query(
