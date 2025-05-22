@@ -5,13 +5,16 @@ import { pool } from '../db/connection';
 export const crearProducto = async (req: Request, res: Response) => {
   const { nombre_producto, descripcion, precio, id_categoria } = req.body;
   try {
+    if(nombre_producto === "" || descripcion === "" || precio === "" || id_categoria === ""){
+      res.status(405).json({msg:"Error, Todos los campos deben ser llenados."});return;
+    }
     const [result] = await pool.query(
       `INSERT INTO Productos (nombre_producto, descripcion, precio, id_categoria) VALUES (?, ?, ?, ?)`,
       [nombre_producto, descripcion, precio, id_categoria || null]
     );
-    res.status(201).json({ message: 'Producto creado', id_producto: (result as any).insertId });
+    res.status(201).json({ message: 'Producto creado', id_producto: (result as any).insertId });return;
   } catch (error) {
-    res.status(500).json({ error: 'Error al crear producto', details: error });
+    res.status(500).json({ error: 'Error al crear producto', details: error });return;
   }
 };
 
