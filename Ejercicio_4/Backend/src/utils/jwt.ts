@@ -9,10 +9,7 @@ export function createToken(id: number, user: string) {
     if (!id || !user) {
       return false;
     }
-    return jwt.sign(
-        {id, user},
-        TOKEN_SECRET || "AgilTech"
-      );
+    return jwt.sign({ id, user }, TOKEN_SECRET || "AgilTech");
   } catch (error) {
     return false;
   }

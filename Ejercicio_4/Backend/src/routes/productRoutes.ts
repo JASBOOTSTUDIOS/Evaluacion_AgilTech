@@ -5,12 +5,13 @@ import {
   updateProduct,
   deleteProduct,
 } from '../controllers/productController';
+import { authMiddleware } from '../middleware/AuthMiddleware';
 
 const router = Router();
 
-router.post('/productos', createProduct);
-router.get('/productos', listProduct);
-router.put('/productos/:id', updateProduct);
-router.delete('/productos/:id', deleteProduct);
+router.post('/productos',authMiddleware, createProduct);
+router.get('/productos',authMiddleware, listProduct);
+router.put('/productos/:id',authMiddleware, updateProduct);
+router.delete('/productos/:id',authMiddleware, deleteProduct);
 
 export default router;
