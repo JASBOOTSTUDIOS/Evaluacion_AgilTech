@@ -4,7 +4,7 @@ interface Props {
   onSave: () => void;
 }
 
-const ProductForm = ({ onSave }: Props) => {
+const CreateProduct = ({ onSave }: Props) => {
   const [formData, setFormData] = useState({
     nombre_producto: '',
     descripcion: '',
@@ -94,4 +94,4 @@ const ProductForm = ({ onSave }: Props) => {
   );
 };
 
-export default ProductForm;
+export default CreateProduct;

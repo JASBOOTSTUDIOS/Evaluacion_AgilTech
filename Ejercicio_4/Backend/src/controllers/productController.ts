@@ -22,7 +22,7 @@ export const listProduct = async (req: Request, res: Response) => {
   try {
     const [rows] = await pool.query(
       `SELECT p.id_producto, p.nombre_producto, p.descripcion, p.precio, c.nombre_categoria, c.id_categoria, i.stock_actual, i.stock_minimo, i.fecha_actualizacion
-       FROM Productos p && categoria c
+       FROM Productos p
        LEFT JOIN Categorias c ON p.id_categoria = c.id_categoria
        LEFT JOIN Inventario i ON p.id_producto = i.id_producto`
     );
@@ -32,7 +32,6 @@ export const listProduct = async (req: Request, res: Response) => {
   }
 };
 
-// Actualizar producto
 export const updateProduct = async (req: Request, res: Response) => {
   const id_producto = req.params.id;
   const { nombre_producto, descripcion, precio, id_categoria } = req.body;

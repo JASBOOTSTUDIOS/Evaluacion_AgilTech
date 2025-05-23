@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import ProductoForm from '../../components/ProductForm';
+import CreateProduct from '../../components/CreateProduct';
 import ProductoList from '../../components/ProductList';
 import type { Producto } from '../../types';
 
@@ -23,8 +23,8 @@ const Productos = () => {
   return (
     <div>
       <h2>Gestión de Productos</h2>
-      <ProductoForm onSave={cargarProductos} />
-      <ProductoList productos={productos} onDelete={cargarProductos} onUpdate={cargarProductos} />
+      <CreateProduct onSave={cargarProductos} />
+     {productos &&  <ProductoList productos={productos} onDelete={cargarProductos} onUpdate={cargarProductos} />}
     </div>
   );
 };
