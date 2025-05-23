@@ -18,7 +18,7 @@ if(process.env.SERVER_PORT){
     PORT = parseInt(process.env.SERVER_PORT);
 }else{
     PORT = 3000;
-};
+}
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
