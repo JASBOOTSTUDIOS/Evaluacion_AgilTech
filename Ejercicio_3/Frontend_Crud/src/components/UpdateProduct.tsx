@@ -89,7 +89,7 @@ const UpdateProduct = ({ onSave, dataProduct}: UpdateProductProps) => {
           />
         </div>
         <div className="col-auto">
-          <button type="submit" className="btn btn-success">Agregar</button>
+          <button type="submit" className="btn btn-outline-info">Guardar</button>
         </div>
       </div>
     </form>
