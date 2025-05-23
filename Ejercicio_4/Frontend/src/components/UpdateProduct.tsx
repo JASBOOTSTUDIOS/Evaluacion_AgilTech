@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import type { Producto } from '../types';
+import { useState } from "react";
+import type { Producto } from "../types";
 
 export interface UpdateProductProps {
   onSave: () => void;
-  dataProduct:Producto;
+  dataProduct: Producto;
 }
 
-const UpdateProduct = ({ onSave, dataProduct}: UpdateProductProps) => {
+const UpdateProduct = ({ onSave, dataProduct }: UpdateProductProps) => {
   const [formData, setFormData] = useState({
     nombre_producto: dataProduct.nombre_producto,
     descripcion: dataProduct.descripcion,
@@ -14,7 +14,9 @@ const UpdateProduct = ({ onSave, dataProduct}: UpdateProductProps) => {
     id_categoria: dataProduct.id_categoria?.toString(),
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -22,24 +24,32 @@ const UpdateProduct = ({ onSave, dataProduct}: UpdateProductProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await fetch(`http://localhost:3000/api/productos/${dataProduct.id_producto}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          precio: parseFloat(formData.precio),
-          id_categoria: parseInt(formData.id_categoria!),
-        }),
-      });
+      const token = localStorage.getItem("authToken");
+      console.info(token);
+      await fetch(
+        `http://localhost:3000/api/productos/${dataProduct.id_producto}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            ...formData,
+            precio: parseFloat(formData.precio),
+            id_categoria: parseInt(formData.id_categoria!),
+          }),
+        }
+      );
       setFormData({
-        nombre_producto: '',
-        descripcion: '',
-        precio: '',
-        id_categoria: '',
+        nombre_producto: "",
+        descripcion: "",
+        precio: "",
+        id_categoria: "",
       });
       onSave();
     } catch (error) {
-      console.error('Error al crear producto:', error);
+      console.error("Error al crear producto:", error);
     }
   };
 
@@ -89,7 +99,9 @@ const UpdateProduct = ({ onSave, dataProduct}: UpdateProductProps) => {
           />
         </div>
         <div className="col-auto">
-          <button type="submit" className="btn btn-outline-info">Guardar</button>
+          <button type="submit" className="btn btn-outline-info">
+            Guardar
+          </button>
         </div>
       </div>
     </form>

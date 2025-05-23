@@ -8,7 +8,14 @@ const Productos = () => {
 
   const cargarProductos = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/productos');
+      const token = localStorage.getItem("authToken");
+      const response = await fetch('http://localhost:3000/api/productos',{
+        method:"GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await response.json();
       setProductos(data);
     } catch (error) {

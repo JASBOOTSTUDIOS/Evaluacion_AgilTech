@@ -13,8 +13,13 @@ const ProductList = ({ productos, onDelete }: Props) => {
   const [visible, setVisible] = useState(false);
   const deleteProduct = async (id: number) => {
     try {
+      const token = localStorage.getItem("authToken");
       await fetch(`http://localhost:3000/api/productos/${id}`, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
       onDelete();
     } catch (error) {
@@ -26,11 +31,10 @@ const ProductList = ({ productos, onDelete }: Props) => {
     setFormData({
       id_producto: data.id_producto,
       nombre_producto: data.nombre_producto,
-      nombre_categoria:data.nombre_categoria,
+      nombre_categoria: data.nombre_categoria,
       descripcion: data.descripcion,
       precio: data.precio,
       id_categoria: data.id_categoria,
-
     });
     setVisible(true);
   };

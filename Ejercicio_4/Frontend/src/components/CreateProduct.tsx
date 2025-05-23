@@ -20,9 +20,13 @@ const CreateProduct = ({ onSave }: Props) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem("authToken");
       await fetch('http://localhost:3000/api/productos', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+                  headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         body: JSON.stringify({
           ...formData,
           precio: parseFloat(formData.precio),
